@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import main
+from .views import RouteView
 
 urlpatterns = [
-    path('corgi', main)
+    path('route', RouteView.as_view()),
 ]

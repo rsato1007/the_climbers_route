@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .model import Route, Profile, Review, Like
+from .models import Route, Profile, Review, Like
 # Using as an example
 # from .model import Room
 
@@ -9,6 +9,8 @@ from .model import Route, Profile, Review, Like
 #         model = RoomSerializer
 #         fields = ('id', 'code', 'host', 'votes_to_skip')
 
+
+# These convert the python code into some format we can use. In this case, it will convert into JSON objects.
 class RouteSerializers(serializers.ModelSerializer):
     class Meta:
         model = Route

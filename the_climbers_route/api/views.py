@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import generics
+from .serializers import RouteSerializers
+from .models import Route
 
 # Create your views here.
-def main(request):
-    return HttpResponse("Here's your sanity check")
+# This is a view that's set up to return to us, all the routes that have been set up.
+class RouteView(generics.CreateAPIView):
+    queryset = Route.objects.all()
+    serializer_class = RouteSerializers
