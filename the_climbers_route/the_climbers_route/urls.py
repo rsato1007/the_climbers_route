@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.urls'))
+    # So if we go to our website and we api/---- it will send the rest of the url to the api urls
+    path('api/', include('api.urls'))
 ]
