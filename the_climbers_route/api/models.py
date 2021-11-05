@@ -12,6 +12,7 @@ class Route(models.Model):
     type = models.CharField(max_length=10)
     pitch = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -24,6 +25,7 @@ class Review(models.Model):
     route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name="reviews")
     rating = models.IntegerField()
     content = models.CharField(max_length=1250)
+    posted_at = models.DateTimeField(auto_now_add=True)
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
