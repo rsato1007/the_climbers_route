@@ -30,3 +30,8 @@ class LikeSerializers(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = ('user', 'review')
+
+class CreateRouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Route
+        fields = ('name', 'location', 'difficulty', 'description', 'image', 'type', 'pitch')
