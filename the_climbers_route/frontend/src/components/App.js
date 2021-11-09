@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import SplashPage from "../pages/SplashPage";
-import CreateRoutePage from "../pages/CreateRoutePage";
+import SplashPage from "../pages/SplashPage/index";
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,7 +16,6 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<SplashPage />} />
-                <Route path="/create" element={<CreateRoutePage />} />
             </Routes>
         </Router>
     );
