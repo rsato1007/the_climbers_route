@@ -5,5 +5,5 @@ urlpatterns = [
     path('', index),
     # Example of other URLs
     # path('route', index)
-    path('create', index)
+    path('route/new', index)
 ]
