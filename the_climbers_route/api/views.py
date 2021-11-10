@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from rest_framework import generics, status
-from .serializers import RouteSerializers, CreateRouteSerializer, CreateUserSerializer, UserSerializer
+from rest_framework import generics, status, viewsets, permissions
+from .serializers import RouteSerializers, CreateRouteSerializer, CreateUserSerializer, UserSerializer, MyTokenObtainPairSerializer
 from .models import Route, User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 
@@ -41,23 +42,18 @@ class CreateRouteView(APIView):
 
 # USER VIEWS
 class CreateUserView(APIView):
-    serializer_class = CreateUserSerializer
-    # This is a function called when a POST request is made.
-    def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
-        print(serializer)
-        # is.valid() ensures the data entered is the correct data before it sends it to the data base.
-        # The current issue we're facing is that the data entered isn't valid.
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format='json'):
+        serializer = CreateUserSerializer(data=request.data)
         if serializer.is_valid():
-            username = serializer.data.get('username')
-            first_name = serializer.data.get('first_name')
-            last_name = serializer.data.get('last_name')
-            email = serializer.data.get('email')
-            password = serializer.data.get('password')
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            user = User(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
-            user.save()
-
-            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
-        print(serializer.errors)
-        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+# Token Views
+class ObtainTokenPairWithView(TokenObtainPairView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = MyTokenObtainPairSerializer
