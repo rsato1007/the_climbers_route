@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import CreateProfileForm from "../../components/CreateProfileForm";
+import LoginForm from "../../components/LoginForm";
 
 const SplashPage = () => {
     const[username, setUsername] = useState("");
@@ -8,7 +9,13 @@ const SplashPage = () => {
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
 
-    const onSubmit = async () => {
+    const onSubmitLogin = async() => {
+        console.log("The request has been sent.");
+        setUsername("");
+        setPassword("");
+    }
+
+    const onSubmitProfile = async () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -41,7 +48,14 @@ const SplashPage = () => {
                 setEmail = {setEmail}
                 password = {password}
                 setPassword = {setPassword}
-                onSubmit = {onSubmit}
+                onSubmit = {onSubmitProfile}
+            />
+            <LoginForm 
+                username = {username}
+                setUsername = {setUsername}
+                password = {password}
+                setPassword = {setPassword}
+                onSubmit = {onSubmitLogin}
             />
         </div>
     );
