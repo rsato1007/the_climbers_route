@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Route, Profile, Review, Like
+from .models import Route, Profile, Review, Like, User
 # Using as an example
 # from .model import Room
 
@@ -14,7 +14,7 @@ from .models import Route, Profile, Review, Like
 class RouteSerializers(serializers.ModelSerializer):
     class Meta:
         model = Route
-        fields = ('name', 'location', 'difficulty', 'description', 'image', 'type', 'pitch', 'user', 'created_at')
+        fields = ('name', 'location', 'difficulty', 'description', 'image', 'climb_type', 'pitch', 'user', 'created_at')
 
 class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +32,19 @@ class LikeSerializers(serializers.ModelSerializer):
         fields = ('user', 'review')
 
 class CreateRouteSerializer(serializers.ModelSerializer):
+    # Serialize classes that map closely to Django models.
     class Meta:
         model = Route
-        fields = ('name', 'location', 'difficulty', 'description', 'image', 'type', 'pitch')
+        fields = ['name', 'location', 'difficulty', 'description', 'image', 'climb_type', 'pitch']
+
+# USER SERIALIZER
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'id']
