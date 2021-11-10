@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import CreateProfileForm from "../../components/CreateProfileForm";
 import LoginForm from "../../components/LoginForm";
+import axiosInstance from "../../api/axiosApi";
 
 const SplashPage = () => {
     const[username, setUsername] = useState("");
@@ -9,10 +10,23 @@ const SplashPage = () => {
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
 
-    const onSubmitLogin = async() => {
-        console.log("The request has been sent.");
-        setUsername("");
-        setPassword("");
+    const onSubmitLogin = async(e) => {
+        e.preventDefault();
+        try {
+            axiosInstance.post('/token/obtain/', {
+                'username': username,
+                'password': password
+            }).then(res => {
+                axiosInstance.defaults.headers['Authorization'] = "JWT " + res.data.access;
+                localStorage.setItem('access_token', res.data.access);
+                localStorage.setItem('refresh_token', res.data.refresh);
+                console.log("here's the data we got back", res.data);
+                setUsername("");
+                setPassword("");
+            });
+        } catch (error) {
+            throw error;
+        }
     }
 
     const onSubmitProfile = async () => {
@@ -55,7 +69,7 @@ const SplashPage = () => {
                 setUsername = {setUsername}
                 password = {password}
                 setPassword = {setPassword}
-                onSubmit = {onSubmitLogin}
+                onSubmit = {(e) => onSubmitLogin(e)}
             />
         </div>
     );

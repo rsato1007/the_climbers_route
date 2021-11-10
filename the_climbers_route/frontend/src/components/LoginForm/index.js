@@ -18,7 +18,7 @@ const LoginForm = ({ username, setUsername, password, setPassword, onSubmit }) =
                 minlength="8"
                 required
             />
-            <button onClick={onSubmit}>Login</button>
+            <button onClick={(e) => onSubmit(e)}>Login</button>
         </div>
     )
 }
