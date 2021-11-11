@@ -6,8 +6,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Create your views here.
+
+# The authenticator function
+JWT_authenticator = JWTAuthentication()
 
 # ROUTE VIEWS
 # This is a view that's set up to return to us, all the routes that have been set up.
@@ -43,6 +47,7 @@ class CreateRouteView(APIView):
 # USER VIEWS
 class CreateUserView(APIView):
     permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
 
     def post(self, request, format='json'):
         serializer = CreateUserSerializer(data=request.data)

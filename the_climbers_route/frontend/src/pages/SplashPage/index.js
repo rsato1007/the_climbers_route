@@ -10,6 +10,14 @@ const SplashPage = () => {
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
 
+    useEffect(() => {
+        if (localStorage.getItem('access_token')) {
+            console.log("you appear to be logged in")
+        } else {
+            console.log("You are not logged in")
+        }
+    }, []);
+
     const onSubmitLogin = async(e) => {
         e.preventDefault();
         try {
