@@ -14,3 +14,4 @@ build/
 tests/report/
 
 secrets.py
+../frontend/node_modules
