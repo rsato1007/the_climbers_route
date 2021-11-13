@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 djangorestframework = "*"
-djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
